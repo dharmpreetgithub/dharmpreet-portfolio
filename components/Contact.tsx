@@ -2,87 +2,44 @@ import { SITE } from "@/lib/links";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative overflow-hidden">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.05] blur-3xl" />
+    <section id="contact" className="container-shell py-28 md:py-40">
+      <div className="mx-auto max-w-2xl text-center">
+        <p className="mb-3 font-mono text-sm text-accent">{SITE.name}</p>
+        <h2 className="mb-3 text-balance font-display text-display-md font-semibold text-body">
+          {SITE.role}
+        </h2>
+        <p className="mb-10 text-muted">{SITE.tagline}</p>
 
-      <div className="container-shell relative py-32 md:py-44">
-        <div className="max-w-4xl">
-          <div className="mb-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            <span className="h-px w-10 bg-accent" />
-            Contact
-          </div>
-
-          <h2 className="font-display text-5xl font-semibold leading-[0.95] tracking-tight text-body md:text-7xl">
-            Let's build something
-            <span className="text-muted"> intelligent.</span>
-          </h2>
-
-          <p className="mt-7 max-w-xl text-lg leading-8 text-muted">
-            Open to opportunities across AI/ML, Generative AI, backend, and
-            software engineering.
-          </p>
-
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <a
             href={`mailto:${SITE.email}`}
-            className="mt-10 inline-flex rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-black transition-transform duration-300 hover:scale-105"
+            className="rounded-full bg-body px-8 py-4 font-medium text-ink transition-colors duration-300 hover:bg-accent"
           >
-            Start a conversation →
+            Email
           </a>
-        </div>
-
-        <div className="mt-20 grid border-y border-line md:grid-cols-4">
-          <a
-            href={SITE.email}
-            className="border-b border-line p-6 text-sm text-muted transition-colors hover:text-accent md:border-b-0 md:border-r"
-          >
-            <span className="font-mono text-[9px] uppercase tracking-widest">
-              Email
-            </span>
-            <span className="mt-3 block break-all text-body">
-              {SITE.email}
-            </span>
-          </a>
-
           <a
             href={SITE.linkedin}
             target="_blank"
-            rel="noreferrer"
-            className="border-b border-line p-6 text-sm text-muted transition-colors hover:text-accent md:border-b-0 md:border-r"
+            rel="noopener noreferrer"
+            className="rounded-full border border-line px-8 py-4 font-medium text-body transition-colors duration-300 hover:border-accent hover:text-accent"
           >
-            <span className="font-mono text-[9px] uppercase tracking-widest">
-              LinkedIn
-            </span>
-            <span className="mt-3 block text-body">
-              Connect ↗
-            </span>
+            LinkedIn
           </a>
-
           <a
             href={SITE.github}
             target="_blank"
-            rel="noreferrer"
-            className="border-b border-line p-6 text-sm text-muted transition-colors hover:text-accent md:border-b-0 md:border-r"
+            rel="noopener noreferrer"
+            className="rounded-full border border-line px-8 py-4 font-medium text-body transition-colors duration-300 hover:border-accent hover:text-accent"
           >
-            <span className="font-mono text-[9px] uppercase tracking-widest">
-              GitHub
-            </span>
-            <span className="mt-3 block text-body">
-              View repositories ↗
-            </span>
+            GitHub
           </a>
-
           <a
             href={SITE.resume}
             target="_blank"
-            rel="noreferrer"
-            className="p-6 text-sm text-muted transition-colors hover:text-accent"
+            rel="noopener noreferrer"
+            className="rounded-full border border-line px-8 py-4 font-medium text-body transition-colors duration-300 hover:border-accent hover:text-accent"
           >
-            <span className="font-mono text-[9px] uppercase tracking-widest">
-              Resume
-            </span>
-            <span className="mt-3 block text-body">
-              Open resume ↗
-            </span>
+            Resume
           </a>
         </div>
       </div>

@@ -1,91 +1,75 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import HeroUniverse from "@/components/HeroUniverse";
 import { SITE } from "@/lib/links";
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set(".hero-reveal", { opacity: 1, y: 0 });
+        return;
+      }
+      gsap.to(".hero-reveal", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: "power3.out",
+        delay: 0.15,
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="relative min-h-[calc(100vh-72px)] overflow-hidden border-b border-line">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(0,212,232,0.08),transparent_30%)]" />
-
-      <div className="container-shell relative grid min-h-[calc(100vh-72px)] items-center gap-12 py-20 lg:grid-cols-[0.9fr_1.1fr] lg:py-16">
-        <div className="relative z-10 max-w-2xl">
-          <div className="mb-6 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            <span className="h-px w-10 bg-accent" />
-            Computer Engineer
-          </div>
-
-          <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[0.95] tracking-tight text-body sm:text-6xl lg:text-7xl">
-            Building intelligent systems{" "}
-            <span className="text-muted">&</span>{" "}
-            scalable software.
-          </h1>
-
-          <p className="mt-7 max-w-xl text-base leading-7 text-muted md:text-lg">
-            I build AI-powered systems, machine-learning solutions, backend
-            services, and software products that turn complex problems into
-            usable technology.
+    <section
+      ref={containerRef}
+      id="top"
+      className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
+    >
+      <div className="container-shell grid grid-cols-1 items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+        <div>
+          <p className="hero-reveal mb-6 -translate-y-2 font-mono text-sm text-accent opacity-0">
+            {SITE.affiliation}
           </p>
-
-          <div className="mt-7 flex flex-wrap gap-2">
-            {[
-              "AI / ML",
-              "Generative AI",
-              "Deep Learning",
-              "Backend",
-              "Software Engineering",
-            ].map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-line bg-surface/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wide text-muted"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link
+          <h1 className="hero-reveal max-w-xl -translate-y-2 text-balance font-display text-display-lg font-semibold text-body opacity-0">
+            {SITE.name}
+          </h1>
+          <p className="hero-reveal mt-5 max-w-lg -translate-y-2 text-balance font-display text-2xl font-medium text-body opacity-0 md:text-3xl">
+            {SITE.headline}
+          </p>
+          <p className="hero-reveal mt-6 max-w-md -translate-y-2 font-mono text-sm text-muted opacity-0">
+            {SITE.tagline}
+          </p>
+          <div className="hero-reveal mt-10 flex -translate-y-2 flex-wrap items-center gap-4 opacity-0">
+            <a
               href="#work"
-              className="rounded-full bg-accent px-6 py-3 text-sm font-medium text-black transition-transform duration-300 hover:scale-105"
+              className="rounded-full bg-body px-6 py-3 text-sm font-medium text-ink transition-colors duration-300 hover:bg-accent"
             >
-              Explore my work →
-            </Link>
-
+              View work
+            </a>
             <a
               href={SITE.resume}
               target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-line px-6 py-3 text-sm font-medium text-body transition-all duration-300 hover:border-accent hover:text-accent"
+              rel="noopener noreferrer"
+              className="text-sm text-muted underline decoration-line underline-offset-4 transition-colors hover:text-body hover:decoration-accent"
             >
-              View resume ↗
+              Resume ↗
             </a>
-          </div>
-
-          <div className="mt-12 flex gap-8 border-t border-line pt-5">
-            <div>
-              <p className="font-display text-xl text-body">04</p>
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                systems built
-              </p>
-            </div>
-
-            <div>
-              <p className="font-display text-xl text-body">AI + SDE</p>
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                focus
-              </p>
-            </div>
-
-            <div>
-              <p className="font-display text-xl text-body">TIET</p>
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted">
-                engineering
-              </p>
-            </div>
           </div>
         </div>
 
-        <div className="relative z-10">
+        <div className="hero-reveal opacity-0">
           <HeroUniverse />
         </div>
       </div>

@@ -2,31 +2,37 @@
 
 import { useState } from "react";
 
-const CAPABILITIES = [
+const skillGroups = [
   {
     id: "ai",
-    label: "AI / ML",
+    label: "01",
+    title: "AI / Machine Learning",
     description:
-      "Machine-learning systems from preprocessing and feature engineering through model evaluation.",
+      "Building and evaluating machine learning systems, from preprocessing and feature engineering to deep learning and model evaluation.",
     skills: [
       "Machine Learning",
       "Deep Learning",
       "CNN",
+      "CRNN",
+      "BiLSTM",
       "Classification",
       "Regression",
-      "Feature Engineering",
       "Model Evaluation",
-      "Scikit-learn",
+      "Feature Engineering",
+      "EDA",
       "PyTorch",
+      "Scikit-learn",
     ],
   },
   {
     id: "genai",
-    label: "Generative AI",
+    label: "02",
+    title: "Generative AI",
     description:
-      "Retrieval-augmented and agentic systems designed around grounded responses and reliable retrieval.",
+      "Designing retrieval-augmented and agentic systems with hybrid search, routing, reranking and grounded generation.",
     skills: [
-      "Agentic RAG",
+      "RAG",
+      "Agentic AI",
       "LLMs",
       "LangGraph",
       "Gemini API",
@@ -34,159 +40,267 @@ const CAPABILITIES = [
       "BM25",
       "Reranking",
       "Query Routing",
-      "Grounded Generation",
       "Prompt Engineering",
+      "Grounded Generation",
+      "Vector Search",
     ],
   },
   {
     id: "backend",
-    label: "Backend",
+    label: "03",
+    title: "Backend & Software",
     description:
-      "API-driven backend systems with structured application logic and database integration.",
+      "Developing structured software systems with backend APIs, databases, software engineering practices and testing.",
     skills: [
       "Python",
-      "FastAPI",
-      "REST APIs",
-      "Backend Development",
-      "OOP",
-      "SQL",
-      "MySQL",
-      "Oracle SQL",
-      "PL/SQL",
-    ],
-  },
-  {
-    id: "software",
-    label: "Software Engineering",
-    description:
-      "Engineering practices covering requirements, architecture, implementation, testing, and maintainability.",
-    skills: [
       "C++",
+      "SQL",
+      "REST APIs",
+      "FastAPI",
+      "OOP",
+      "DSA",
       "Software Engineering",
       "SDLC",
       "UML",
       "Testing",
-      "Integration Testing",
-      "System Design",
-      "Git",
-      "GitHub",
+      "Git / GitHub",
     ],
   },
   {
-    id: "signal",
-    label: "Signal Processing",
+    id: "data",
+    label: "04",
+    title: "Data & Databases",
     description:
-      "Deep-learning workflows for physiological and speech signals.",
+      "Working with structured data, relational databases, preprocessing and analytical workflows.",
+    skills: [
+      "Pandas",
+      "NumPy",
+      "MySQL",
+      "Oracle SQL",
+      "PL/SQL",
+      "ChromaDB",
+      "Data Preprocessing",
+      "SQL Queries",
+    ],
+  },
+  {
+    id: "signals",
+    label: "05",
+    title: "Signal Processing",
+    description:
+      "Applying deep learning and signal-processing techniques to speech, EEG and EMG data.",
     skills: [
       "EEG",
       "EMG",
       "Audio Processing",
       "Mel-Spectrograms",
-      "Signal Preprocessing",
-      "Feature Extraction",
+      "Signal Processing",
       "PhysioNet",
       "NinaPro",
+      "TORGO",
     ],
   },
   {
-    id: "data",
-    label: "Data & Tools",
+    id: "tools",
+    label: "06",
+    title: "Tools & Workflow",
     description:
-      "Data manipulation, experimentation, development, and workflow tooling.",
+      "Tools used throughout development, experimentation, version control and technical workflows.",
     skills: [
-      "Pandas",
-      "NumPy",
-      "EDA",
-      "Data Preprocessing",
-      "ChromaDB",
-      "Vector Search",
       "VS Code",
       "Google Colab",
-      "R",
+      "Git",
+      "GitHub",
+      "Python",
+      "Jupyter",
     ],
   },
 ];
 
 export default function Skills() {
-  const [active, setActive] = useState(CAPABILITIES[0]);
+  const [active, setActive] = useState("ai");
+
+  const activeGroup =
+    skillGroups.find((group) => group.id === active) ?? skillGroups[0];
 
   return (
-    <section id="skills" className="border-y border-line bg-raised/30">
-      <div className="container-shell py-28 md:py-36">
-        <div className="mb-16 max-w-3xl">
-          <div className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            <span className="h-px w-10 bg-accent" />
-            Capability map
-          </div>
+    <section
+      id="skills"
+      className="container-shell py-24 md:py-36"
+    >
+      {/* Heading */}
+      <div className="mb-14 md:mb-20">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-accent" />
 
-          <h2 className="font-display text-4xl font-semibold tracking-tight text-body md:text-6xl">
-            The stack behind the systems.
-          </h2>
-
-          <p className="mt-6 max-w-2xl text-muted md:text-lg">
-            My work sits at the intersection of artificial intelligence,
-            backend engineering, and software development.
-          </p>
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent">
+            Capability Map
+          </span>
         </div>
 
-        <div className="grid overflow-hidden rounded-3xl border border-line bg-surface lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="border-b border-line lg:border-b-0 lg:border-r">
-            {CAPABILITIES.map((capability, index) => (
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <h2 className="max-w-2xl font-display text-display-md font-semibold leading-tight text-body">
+            A stack built around
+            <br />
+            <span className="text-muted">
+              intelligent systems.
+            </span>
+          </h2>
+
+          <p className="max-w-md text-sm leading-6 text-muted md:text-base">
+            A combination of machine learning, generative AI,
+            backend engineering, data systems and signal
+            processing.
+          </p>
+        </div>
+      </div>
+
+      {/* Main capability map */}
+      <div className="grid overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-[0.8fr_1.2fr]">
+        {/* Categories */}
+        <div className="border-b border-line lg:border-b-0 lg:border-r">
+          {skillGroups.map((group) => {
+            const isActive = active === group.id;
+
+            return (
               <button
-                key={capability.id}
-                onClick={() => setActive(capability)}
-                className={`flex w-full items-center justify-between border-b border-line px-6 py-5 text-left transition-all last:border-b-0 md:px-8 ${
-                  active.id === capability.id
-                    ? "bg-accent/[0.06] text-accent"
-                    : "text-muted hover:bg-raised hover:text-body"
-                }`}
+                key={group.id}
+                type="button"
+                onClick={() => setActive(group.id)}
+                className={`
+                  group flex w-full items-center
+                  justify-between border-b border-line
+                  px-6 py-5 text-left
+                  transition-all duration-300
+                  last:border-b-0
+                  md:px-8 md:py-6
+                  ${
+                    isActive
+                      ? "bg-accent/5"
+                      : "hover:bg-raised"
+                  }
+                `}
               >
-                <span className="flex items-center gap-4">
-                  <span className="font-mono text-[10px] opacity-50">
-                    0{index + 1}
+                <div className="flex items-center gap-4">
+                  <span
+                    className={`
+                      font-mono text-[10px]
+                      ${
+                        isActive
+                          ? "text-accent"
+                          : "text-muted/50"
+                      }
+                    `}
+                  >
+                    {group.label}
                   </span>
-                  <span className="font-medium">{capability.label}</span>
-                </span>
+
+                  <span
+                    className={`
+                      text-sm font-medium
+                      md:text-base
+                      ${
+                        isActive
+                          ? "text-body"
+                          : "text-muted"
+                      }
+                    `}
+                  >
+                    {group.title}
+                  </span>
+                </div>
 
                 <span
-                  className={`transition-transform ${
-                    active.id === capability.id ? "translate-x-1" : ""
-                  }`}
+                  className={`
+                    text-lg transition-all duration-300
+                    ${
+                      isActive
+                        ? "translate-x-0 text-accent opacity-100"
+                        : "-translate-x-2 text-muted opacity-0"
+                    }
+                  `}
                 >
                   →
                 </span>
               </button>
-            ))}
-          </div>
+            );
+          })}
+        </div>
 
-          <div className="min-h-[360px] p-7 md:p-10 lg:p-14">
-            <div className="flex items-start justify-between gap-5">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-                  Active capability
-                </p>
+        {/* Active capability */}
+        <div className="relative min-h-[430px] overflow-hidden p-7 md:p-10 lg:p-12">
+          {/* Background grid */}
+          <div
+            className="
+              pointer-events-none absolute inset-0 opacity-30
+              [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)]
+              [background-size:32px_32px]
+            "
+          />
 
-                <h3 className="mt-4 font-display text-3xl font-semibold text-body md:text-4xl">
-                  {active.label}
-                </h3>
-              </div>
+          {/* Glow */}
+          <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/5 blur-3xl" />
 
-              <span className="font-mono text-xs text-muted">/SYSTEM</span>
+          <div className="relative">
+            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
+              Capability / {activeGroup.label}
             </div>
 
-            <p className="mt-5 max-w-xl leading-7 text-muted">
-              {active.description}
+            <h3 className="font-display text-2xl font-semibold text-body md:text-3xl">
+              {activeGroup.title}
+            </h3>
+
+            <p className="mt-4 max-w-xl text-sm leading-7 text-muted">
+              {activeGroup.description}
             </p>
 
-            <div className="mt-9 grid grid-cols-2 gap-2 sm:grid-cols-3">
-              {active.skills.map((skill) => (
-                <div
-                  key={skill}
-                  className="border border-line px-4 py-3 font-mono text-xs text-muted transition-all hover:border-accent/50 hover:text-accent"
-                >
-                  {skill}
-                </div>
-              ))}
+            {/* Skills */}
+            <div className="mt-10">
+              <div className="mb-4 font-mono text-[9px] uppercase tracking-[0.2em] text-muted/60">
+                Technologies & concepts
+              </div>
+
+              <div className="flex flex-wrap gap-2.5">
+                {activeGroup.skills.map((skill, index) => (
+                  <span
+                    key={skill}
+                    className="
+                      group/skill
+                      rounded-lg
+                      border border-line
+                      bg-ink/40
+                      px-3 py-2
+                      font-mono text-[10px]
+                      text-muted
+                      transition-all duration-300
+                      hover:border-accent/40
+                      hover:bg-accent/5
+                      hover:text-accent
+                    "
+                    style={{
+                      animationDelay: `${index * 30}ms`,
+                    }}
+                  >
+                    <span className="mr-2 text-accent/40 transition-colors group-hover/skill:text-accent">
+                      +
+                    </span>
+
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* System indicator */}
+            <div className="mt-12 flex items-center gap-3 border-t border-line pt-5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-30" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted">
+                Active capability
+              </span>
             </div>
           </div>
         </div>

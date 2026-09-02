@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import {
-  Bricolage_Grotesque,
-  Instrument_Sans,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Nav from "@/components/Nav";
@@ -44,13 +39,10 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <body className="bg-ink text-body font-body antialiased selection:bg-accent selection:text-ink">
         <SmoothScroll>
           <Nav />

@@ -1,199 +1,212 @@
 import Link from "next/link";
 import { projects } from "@/lib/projects";
-
-function ArchitectureFlow({
-  project,
-}: {
-  project: (typeof projects)[number];
-}) {
-  const steps =
-    project.slug === "rag-knowledge-assistant"
-      ? ["Query", "Route", "Retrieve", "Rerank", "Validate", "Generate"]
-      : project.slug === "multimodal-eeg-emg-robotic-arm-controller"
-        ? ["EEG Intent", "EMG Gesture", "Classification", "Command"]
-        : project.slug === "dysarthric-speech-severity-detection"
-          ? ["Audio", "Mel-Spec", "CNN", "BiLSTM", "Severity"]
-          : ["SRS", "UML / DFD", "Core Modules", "Testing"];
-
-  return (
-    <div className="mt-8 overflow-x-auto pb-2">
-      <div className="flex min-w-max items-center gap-2">
-        {steps.map((step, index) => (
-          <div key={step} className="flex items-center gap-2">
-            <span className="border border-line bg-raised px-3 py-2 font-mono text-[10px] uppercase tracking-wide text-muted">
-              {step}
-            </span>
-
-            {index !== steps.length - 1 && (
-              <span className="text-accent/60">→</span>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import ProjectCard from "@/components/ProjectCard";
 
 export default function WorkGrid() {
-  const [featured, ...rest] = projects;
+  const featured = projects[0];
+  const remaining = projects.slice(1);
 
   return (
-    <section id="work" className="container-shell py-28 md:py-36">
-      <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div>
-          <div className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-accent">
-            <span className="h-px w-10 bg-accent" />
-            Selected systems
-          </div>
-
-          <h2 className="font-display text-4xl font-semibold tracking-tight text-body md:text-6xl">
-            Built to solve real problems.
-          </h2>
+    <section id="work" className="container-shell py-24 md:py-36">
+      {/* Section heading */}
+      <div className="mb-14 md:mb-20">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="h-px w-8 bg-accent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-accent">
+            Selected Systems
+          </span>
         </div>
 
-        <p className="max-w-md text-muted">
-          A collection of AI, machine-learning, backend, and software
-          engineering systems — explored through architecture, implementation,
-          and results.
-        </p>
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <h2 className="max-w-2xl font-display text-display-md font-semibold leading-tight text-body">
+            Systems I’ve built,
+            <br />
+            <span className="text-muted">problems I’ve explored.</span>
+          </h2>
+
+          <p className="max-w-md text-sm leading-6 text-muted md:text-base">
+            From agentic retrieval and deep learning to backend and
+            software engineering, these projects reflect how I approach
+            real technical problems.
+          </p>
+        </div>
       </div>
 
-      <Link
-        href={`/work/${featured.slug}`}
-        className="group block overflow-hidden rounded-3xl border border-line bg-surface transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
-      >
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="p-7 md:p-10 lg:p-14">
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-sm text-accent">
-                {featured.number}
-              </span>
+      {/* Featured project */}
+      <div className="mb-6">
+        <Link
+          href={`/work/${featured.slug}`}
+          className="
+            group relative block overflow-hidden
+            rounded-2xl border border-line
+            bg-surface
+            transition-all duration-500
+            hover:border-accent/40
+            hover:shadow-[0_25px_90px_-35px_rgba(0,212,232,0.4)]
+          "
+        >
+          <div className="grid min-h-[430px] lg:grid-cols-[1.05fr_0.95fr]">
+            {/* Left */}
+            <div className="relative flex flex-col justify-between p-7 md:p-10 lg:p-12">
+              <div>
+                <div className="mb-8 flex items-center justify-between">
+                  <span className="font-mono text-xs tracking-[0.2em] text-accent">
+                    {featured.number}
+                  </span>
 
-              <span className="rounded-full border border-accent/20 px-3 py-1 font-mono text-[10px] uppercase tracking-wide text-accent">
-                Featured system
-              </span>
-            </div>
+                  <span className="rounded-full border border-accent/20 bg-accent/5 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-accent">
+                    Featured System
+                  </span>
+                </div>
 
-            <h3 className="mt-12 max-w-2xl font-display text-3xl font-semibold text-body md:text-5xl">
-              {featured.name}
-            </h3>
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+                  Agentic AI · Retrieval · Backend
+                </p>
 
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
-              {featured.tagline}
-            </p>
+                <h3 className="max-w-xl font-display text-3xl font-semibold leading-tight text-body transition-colors duration-300 group-hover:text-accent md:text-4xl lg:text-5xl">
+                  {featured.name}
+                </h3>
 
-            <ArchitectureFlow project={featured} />
+                <p className="mt-5 max-w-xl text-sm leading-7 text-muted md:text-base">
+                  {featured.tagline}
+                </p>
 
-            <div className="mt-8 flex flex-wrap gap-2">
-              {featured.tech.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full border border-line px-3 py-1.5 font-mono text-[10px] text-muted"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {featured.tech.slice(0, 7).map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-md border border-line px-2.5 py-1 font-mono text-[10px] text-muted"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-            <div className="mt-10 flex items-center gap-3 text-sm font-medium text-body group-hover:text-accent">
-              Explore architecture
-              <span className="transition-transform group-hover:translate-x-2">
-                →
-              </span>
-            </div>
-          </div>
-
-          <div className="relative min-h-[320px] overflow-hidden border-t border-line bg-raised/50 lg:border-l lg:border-t-0">
-            <div className="absolute inset-0 opacity-40">
-              <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/20" />
-              <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/20" />
-              <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/30" />
-            </div>
-
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              <div className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/40 bg-surface font-mono text-[10px] uppercase tracking-wider text-accent shadow-[0_0_60px_-20px_rgba(0,212,232,.7)]">
-                RAG
+              <div className="mt-10 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(0,212,232,0.8)]" />
+                End-to-end intelligent system
               </div>
             </div>
 
-            {["QUERY", "RETRIEVAL", "EVIDENCE", "LLM"].map(
-              (item, index) => (
-                <div
-                  key={item}
-                  className="absolute border border-line bg-surface/90 px-3 py-2 font-mono text-[9px] text-muted backdrop-blur"
-                  style={{
-                    left:
-                      index === 0
-                        ? "14%"
-                        : index === 1
-                          ? "70%"
-                          : index === 2
-                            ? "18%"
-                            : "67%",
-                    top:
-                      index === 0
-                        ? "20%"
-                        : index === 1
-                          ? "28%"
-                          : index === 2
-                            ? "68%"
-                            : "72%",
-                  }}
-                >
-                  {item}
+            {/* Right architecture panel */}
+            <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden border-t border-line bg-ink/50 lg:border-l lg:border-t-0">
+              {/* Grid */}
+              <div
+                className="
+                  absolute inset-0 opacity-40
+                  [background-image:linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)]
+                  [background-size:32px_32px]
+                "
+              />
+
+              {/* glow */}
+              <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/5 blur-3xl" />
+
+              {/* Architecture */}
+              <div className="relative w-[82%] max-w-md">
+                <div className="mb-4 text-center font-mono text-[9px] uppercase tracking-[0.25em] text-muted/60">
+                  Retrieval Architecture
                 </div>
-              )
-            )}
+
+                <div className="space-y-3">
+                  <div className="flex items-center justify-center gap-3">
+                    <ArchitectureNode label="Documents" />
+                    <Connector />
+                    <ArchitectureNode label="Ingestion" />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <VerticalConnector />
+                  </div>
+
+                  <div className="flex items-center justify-center gap-3">
+                    <ArchitectureNode label="Query" accent />
+                    <Connector />
+                    <ArchitectureNode label="Routing" />
+                    <Connector />
+                    <ArchitectureNode label="Retrieval" />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <VerticalConnector />
+                  </div>
+
+                  <div className="flex items-center justify-center gap-3">
+                    <ArchitectureNode label="Reranking" />
+                    <Connector />
+                    <ArchitectureNode label="LLM" accent />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <VerticalConnector />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <ArchitectureNode label="Grounded Answer" accent />
+                  </div>
+                </div>
+              </div>
+
+              <span className="absolute bottom-4 right-5 font-mono text-[9px] tracking-[0.2em] text-muted/40">
+                RAG / 01
+              </span>
+            </div>
           </div>
-        </div>
-      </Link>
 
-      <div className="mt-4 grid gap-4 md:grid-cols-3">
-        {rest.map((project) => (
-          <Link
-            key={project.slug}
-            href={`/work/${project.slug}`}
-            className="group rounded-3xl border border-line bg-surface p-7 transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-sm text-accent">
-                {project.number}
-              </span>
+          {/* bottom action */}
+          <div className="flex items-center justify-between border-t border-line px-7 py-4 md:px-10">
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">
+              View technical case study
+            </span>
 
-              <span className="font-mono text-[9px] uppercase tracking-widest text-muted">
-                {project.category === "ai"
-                  ? "AI / ML"
-                  : "Software"}
-              </span>
-            </div>
+            <span className="text-accent transition-transform duration-300 group-hover:translate-x-1">
+              ↗
+            </span>
+          </div>
+        </Link>
+      </div>
 
-            <h3 className="mt-12 font-display text-2xl font-semibold text-body transition-colors group-hover:text-accent">
-              {project.name}
-            </h3>
-
-            <p className="mt-4 text-sm leading-6 text-muted">
-              {project.tagline}
-            </p>
-
-            <ArchitectureFlow project={project} />
-
-            <div className="mt-6 flex flex-wrap gap-1.5">
-              {project.tech.slice(0, 4).map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full border border-line px-2.5 py-1 font-mono text-[9px] text-muted"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            <div className="mt-7 text-sm text-muted transition-colors group-hover:text-accent">
-              View case study →
-            </div>
-          </Link>
+      {/* Remaining projects */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {remaining.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </section>
   );
+}
+
+function ArchitectureNode({
+  label,
+  accent = false,
+}: {
+  label: string;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className={`
+        rounded-lg border px-3 py-2
+        font-mono text-[9px]
+        uppercase tracking-[0.08em]
+        whitespace-nowrap
+        ${
+          accent
+            ? "border-accent/30 bg-accent/5 text-accent"
+            : "border-line bg-surface text-muted"
+        }
+      `}
+    >
+      {label}
+    </div>
+  );
+}
+
+function Connector() {
+  return <div className="h-px w-4 bg-accent/20" />;
+}
+
+function VerticalConnector() {
+  return <div className="h-4 w-px bg-accent/20" />;
 }

@@ -5,7 +5,7 @@ export default function NotFound() {
     <div className="container-shell flex min-h-[70vh] flex-col items-center justify-center pt-20 text-center">
       <p className="mb-4 font-mono text-sm text-accent">404</p>
       <h1 className="mb-6 font-display text-display-md font-semibold text-body">
-        This page doesn't exist.
+        This page doesn&apos;t exist.
       </h1>
       <Link
         href="/"
@@ -16,3 +16,4 @@ export default function NotFound() {
     </div>
   );
 }
+
